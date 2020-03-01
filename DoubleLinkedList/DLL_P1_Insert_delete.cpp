@@ -8,11 +8,19 @@ struct Node
 	struct Node *prev, *next;
 };
 
+// Insertion functions
 Node *newNode(int data);
 void insertatFirst(Node **head, int data);
 void insertatEnd(Node **head, int data);
 void insertAfter(Node **head, int afterData, int data);
 void insertBefore(Node **head, int beforeData, int data);
+
+// Deletion functions
+int deleteNode(Node **head);
+int deleteAtFirst(Node **head);
+int deleteAtLast(Node **head);
+int deleteAfterNode(Node **head);
+int deleteBeforeNode(Node **head, int data);
 
 void insert(Node **head, int data)
 {
@@ -118,29 +126,113 @@ void insertBefore(Node **head, int beforeData, int data)
 	}
 }
 
-int deleteNode(Node *head)
+int deleteNode(Node **head)
 {
-	return 0;
+	return deleteAtFirst(head);
 }
 
 int deleteAtFirst(Node **head)
 {
-	return 0;
+	int val = -1;
+	if (*head == NULL)
+	{
+		return -1;
+	}
+
+	Node *temp = *head;
+	*head = (*head)->next;
+	val = temp->data;
+	delete (temp);
+	return val;
 }
 
-int deleteatLast(Node **head)
+int deleteAtLast(Node **head)
 {
-	return 0;
+	int val = -1;
+	if (*head == NULL)
+	{
+		return -1;
+	}
+	if ((*head)->next == NULL)
+	{
+		return deleteAtFirst(head);
+	}
+
+	Node *temp = *head, *prev = NULL;
+	while (temp->next != NULL)
+	{
+		prev = temp;
+		temp = temp->next;
+	}
+	prev->next = NULL;
+	val = temp->data;
+	delete (temp);
+	return val;
 }
 
 int deleteAfterNode(Node **head, int data)
 {
-	return 0;
+	int val = -1;
+	if (*head == NULL)
+	{
+		return -1;
+	}
+
+	Node *temp = *head, *prev = NULL;
+
+	while (temp != NULL)
+	{
+		if (prev != NULL && prev->data == data)
+			break;
+		prev = temp;
+		temp = temp->next;
+	}
+
+	if (temp == NULL)
+	{
+		return -1;
+	}
+	prev->next = temp->next;
+	val = temp->data;
+	delete (temp);
+	return val;
 }
 
-int delteBeforeNode(Node **head, int data)
+int deleteBeforeNode(Node **head, int data)
 {
-	return 0;
+	int val = -1;
+	if (*head == NULL)
+	{
+		return -1;
+	}
+
+	Node *next = *head, *prev = NULL, *curr = NULL;
+	while (next != NULL)
+	{
+		if (next->data == data)
+			break;
+		prev = curr;
+		curr = next;
+		next = next->next;
+	}
+
+	if (next == NULL || curr == NULL)
+	{
+		return -1;
+	}
+
+	if (prev != NULL)
+	{
+		prev->next = next;
+	}
+	else if (*head == curr)
+	{
+		*head = next;
+	}
+
+	val = curr->data;
+	delete (curr);
+	return val;
 }
 
 void printList(Node **head)
@@ -179,6 +271,16 @@ int main()
 	insertAfter(pHead, 7, 25);
 	insertBefore(pHead, 48, 67);
 
+	printList(pHead);
+
+	deleteNode(pHead);
+	deleteAtLast(pHead);
+	deleteAfterNode(pHead, 55);
+	deleteAfterNode(pHead, 48);
+	printList(pHead);
+
+	deleteBeforeNode(pHead, 9);
+	deleteBeforeNode(pHead, 7);
 	printList(pHead);
 
 	return 0;
