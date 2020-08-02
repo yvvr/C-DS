@@ -1,0 +1,102 @@
+###################
+
+### vectors ###
+
+vector<int> result;
+
+result.push_back(i);
+result.at(i)
+result.pop_back(i);
+result.size();
+
+result.front();
+result.back();
+
+result.erase(position)
+result.erase(startingposition, endingposition)
+
+result.clear() // clears vector
+
+result[i] = 30;
+
+int* pos = result.data(); //returns pointer
+
+
+vector<pair<int,int>> vec(n); 
+sort(vec.begin(),vec.end()); //sorting a vector by first value.
+
+std::vector<pair<int,int> > t(v.size()); 
+
+#####################
+
+### Unordered SET ###
+
+unordered_set<int>
+
+intSet.insert(arr[i])
+sampleSet.erase(sampleSet.find(10)); 
+
+if (intSet.find(arr[i]) == intSet.end()) 
+
+unordered_set<int> :: iterator itr; 
+for (itr = duplicate.begin(); itr != duplicate.end(); itr++)
+
+
+#####################
+
+### Unordered MAP ###
+
+1. unordered_map<string, double> umap; 
+
+2. umap.insert(make_pair("e", 2.718));
+3. if (umap.find(key) == umap.end()) :
+4. unordered_map<string, double>:: iterator itr;
+5. umap["root2"] = 1.414; 
+
+unordered_map vs map : 
+map (like set) is an ordered sequence of unique keys whereas in unordered_map key can be stored in any order, so unordered.
+Map is implemented as balanced tree structure that is why it is possible to maintain an order between the elements (by specific tree traversal). 
+Time complexity of map operations is O(Log n) while for unordered_set, it is O(1) on average.
+
+
+## Dequeue ##
+
+ deque<Node*> q; 
+ q.push_front(root);
+ 
+ q.push_back(node->left); 
+ q.pop_front();
+ q.pop_back();
+ 
+ ### SORT ###
+ 
+ ## C lang ##
+ 1. qsort (arr, n, sizeof(arr[0]), compare); 
+ 
+ void qsort (void* base, size_t num, size_t size, 
+			int (*comparator)(const void*,const void*)); 
+			
+ ##C++##
+ 
+ 2. int arr[] = {1, 5, 8, 9, 6, 7, 3, 4, 2, 0}; 
+ int n = sizeof(arr)/sizeof(arr[0]); 
+  
+ sort(arr, arr+n);
+ sort(arr, arr+n, greater<int>()); 
+ 
+ sort(arr, arr+n, compareInterval); 
+ 
+ struct Interval 
+{ 
+    int start, end; 
+}; 
+  
+// Compares two intervals according to staring times. 
+bool compareInterval(Interval i1, Interval i2) 
+{ 
+    return (i1.start < i2.start); 
+}
+
+
+Copy the items of binary tree in a set while doing inorder traversal. This takes O(n log n) time. 
+Note that set in C++ STL is implemented using a Self Balancing Binary Search Tree like Red Black Tree, AVL Tree, etc
